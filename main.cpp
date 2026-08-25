@@ -1,12 +1,17 @@
 #include <iostream>
 #include <cmath>
 #include <limits>
+#include <vector>
+#include <string>
 
 using namespace std;
 
 int main()
 {
     int choice;
+
+    // Store calculation history
+    vector<string> history;
 
     do
     {
@@ -38,17 +43,22 @@ int main()
         cout << "11. Cos" << endl;
         cout << "12. Tan" << endl;
 
+        // History
+        cout << "\n[ HISTORY ]" << endl;
+        cout << "13. View History" << endl;
+        cout << "14. Clear History" << endl;
+
         // Exit
-        cout << "\n13. Exit" << endl;
+        cout << "\n15. Exit" << endl;
 
         cout << "\n--------------------------------------------" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
 
-        // Check invalid input
+        // Invalid input handling
         if (cin.fail())
         {
-            cout << "\nError: Please enter a number between 1 and 13.";
+            cout << "\nError: Please enter a number between 1 and 15.";
 
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -58,10 +68,12 @@ int main()
 
         switch(choice)
         {
-            // Addition
+            // ==========================================
+            // 1. ADDITION
+            // ==========================================
             case 1:
             {
-                double a, b;
+                double a, b, result;
 
                 cout << "\nEnter first number: ";
                 cin >> a;
@@ -69,15 +81,25 @@ int main()
                 cout << "Enter second number: ";
                 cin >> b;
 
-                cout << "\nResult = " << a + b << endl;
+                result = a + b;
+
+                cout << "\nResult = " << result << endl;
+
+                history.push_back(
+                    to_string(a) + " + " +
+                    to_string(b) + " = " +
+                    to_string(result)
+                );
 
                 break;
             }
 
-            // Subtraction
+            // ==========================================
+            // 2. SUBTRACTION
+            // ==========================================
             case 2:
             {
-                double a, b;
+                double a, b, result;
 
                 cout << "\nEnter first number: ";
                 cin >> a;
@@ -85,15 +107,25 @@ int main()
                 cout << "Enter second number: ";
                 cin >> b;
 
-                cout << "\nResult = " << a - b << endl;
+                result = a - b;
+
+                cout << "\nResult = " << result << endl;
+
+                history.push_back(
+                    to_string(a) + " - " +
+                    to_string(b) + " = " +
+                    to_string(result)
+                );
 
                 break;
             }
 
-            // Multiplication
+            // ==========================================
+            // 3. MULTIPLICATION
+            // ==========================================
             case 3:
             {
-                double a, b;
+                double a, b, result;
 
                 cout << "\nEnter first number: ";
                 cin >> a;
@@ -101,15 +133,25 @@ int main()
                 cout << "Enter second number: ";
                 cin >> b;
 
-                cout << "\nResult = " << a * b << endl;
+                result = a * b;
+
+                cout << "\nResult = " << result << endl;
+
+                history.push_back(
+                    to_string(a) + " * " +
+                    to_string(b) + " = " +
+                    to_string(result)
+                );
 
                 break;
             }
 
-            // Division
+            // ==========================================
+            // 4. DIVISION
+            // ==========================================
             case 4:
             {
-                double a, b;
+                double a, b, result;
 
                 cout << "\nEnter first number: ";
                 cin >> a;
@@ -123,16 +165,26 @@ int main()
                 }
                 else
                 {
-                    cout << "\nResult = " << a / b << endl;
+                    result = a / b;
+
+                    cout << "\nResult = " << result << endl;
+
+                    history.push_back(
+                        to_string(a) + " / " +
+                        to_string(b) + " = " +
+                        to_string(result)
+                    );
                 }
 
                 break;
             }
 
-            // Modulus
+            // ==========================================
+            // 5. MODULUS
+            // ==========================================
             case 5:
             {
-                int a, b;
+                int a, b, result;
 
                 cout << "\nEnter first integer: ";
                 cin >> a;
@@ -146,16 +198,26 @@ int main()
                 }
                 else
                 {
-                    cout << "\nResult = " << a % b << endl;
+                    result = a % b;
+
+                    cout << "\nResult = " << result << endl;
+
+                    history.push_back(
+                        to_string(a) + " % " +
+                        to_string(b) + " = " +
+                        to_string(result)
+                    );
                 }
 
                 break;
             }
 
-            // Power
+            // ==========================================
+            // 6. POWER
+            // ==========================================
             case 6:
             {
-                double base, exponent;
+                double base, exponent, result;
 
                 cout << "\nEnter base: ";
                 cin >> base;
@@ -163,15 +225,26 @@ int main()
                 cout << "Enter exponent: ";
                 cin >> exponent;
 
-                cout << "\nResult = " << pow(base, exponent) << endl;
+                result = pow(base, exponent);
+
+                cout << "\nResult = " << result << endl;
+
+                history.push_back(
+                    "pow(" +
+                    to_string(base) + ", " +
+                    to_string(exponent) + ") = " +
+                    to_string(result)
+                );
 
                 break;
             }
 
-            // Square Root
+            // ==========================================
+            // 7. SQUARE ROOT
+            // ==========================================
             case 7:
             {
-                double number;
+                double number, result;
 
                 cout << "\nEnter a number: ";
                 cin >> number;
@@ -182,16 +255,27 @@ int main()
                 }
                 else
                 {
-                    cout << "\nResult = " << sqrt(number) << endl;
+                    result = sqrt(number);
+
+                    cout << "\nResult = " << result << endl;
+
+                    history.push_back(
+                        "sqrt(" +
+                        to_string(number) +
+                        ") = " +
+                        to_string(result)
+                    );
                 }
 
                 break;
             }
 
-            // Natural Log
+            // ==========================================
+            // 8. NATURAL LOG
+            // ==========================================
             case 8:
             {
-                double number;
+                double number, result;
 
                 cout << "\nEnter a positive number: ";
                 cin >> number;
@@ -202,16 +286,27 @@ int main()
                 }
                 else
                 {
-                    cout << "\nResult = " << log(number) << endl;
+                    result = log(number);
+
+                    cout << "\nResult = " << result << endl;
+
+                    history.push_back(
+                        "log(" +
+                        to_string(number) +
+                        ") = " +
+                        to_string(result)
+                    );
                 }
 
                 break;
             }
 
-            // Log Base 10
+            // ==========================================
+            // 9. LOG BASE 10
+            // ==========================================
             case 9:
             {
-                double number;
+                double number, result;
 
                 cout << "\nEnter a positive number: ";
                 cin >> number;
@@ -222,59 +317,144 @@ int main()
                 }
                 else
                 {
-                    cout << "\nResult = " << log10(number) << endl;
+                    result = log10(number);
+
+                    cout << "\nResult = " << result << endl;
+
+                    history.push_back(
+                        "log10(" +
+                        to_string(number) +
+                        ") = " +
+                        to_string(result)
+                    );
                 }
 
                 break;
             }
 
-            // Sin
+            // ==========================================
+            // 10. SIN
+            // ==========================================
             case 10:
             {
-                double degree;
+                double degree, radian, result;
 
                 cout << "\nEnter angle in degrees: ";
                 cin >> degree;
 
-                double radian = degree * acos(-1) / 180;
+                radian = degree * acos(-1) / 180;
+                result = sin(radian);
 
-                cout << "\nResult = " << sin(radian) << endl;
+                cout << "\nResult = " << result << endl;
+
+                history.push_back(
+                    "sin(" +
+                    to_string(degree) +
+                    " deg) = " +
+                    to_string(result)
+                );
 
                 break;
             }
 
-            // Cos
+            // ==========================================
+            // 11. COS
+            // ==========================================
             case 11:
             {
-                double degree;
+                double degree, radian, result;
 
                 cout << "\nEnter angle in degrees: ";
                 cin >> degree;
 
-                double radian = degree * acos(-1) / 180;
+                radian = degree * acos(-1) / 180;
+                result = cos(radian);
 
-                cout << "\nResult = " << cos(radian) << endl;
+                cout << "\nResult = " << result << endl;
+
+                history.push_back(
+                    "cos(" +
+                    to_string(degree) +
+                    " deg) = " +
+                    to_string(result)
+                );
 
                 break;
             }
 
-            // Tan
+            // ==========================================
+            // 12. TAN
+            // ==========================================
             case 12:
             {
-                double degree;
+                double degree, radian, result;
 
                 cout << "\nEnter angle in degrees: ";
                 cin >> degree;
 
-                double radian = degree * acos(-1) / 180;
+                radian = degree * acos(-1) / 180;
+                result = tan(radian);
 
-                cout << "\nResult = " << tan(radian) << endl;
+                cout << "\nResult = " << result << endl;
+
+                history.push_back(
+                    "tan(" +
+                    to_string(degree) +
+                    " deg) = " +
+                    to_string(result)
+                );
 
                 break;
             }
 
-            // Exit
+            // ==========================================
+            // 13. VIEW HISTORY
+            // ==========================================
             case 13:
+            {
+                cout << "\n============================================" << endl;
+                cout << "          CALCULATION HISTORY" << endl;
+                cout << "============================================" << endl;
+
+                if (history.empty())
+                {
+                    cout << "No calculations yet." << endl;
+                }
+                else
+                {
+                    for (int i = 0; i < history.size(); i++)
+                    {
+                        cout << i + 1 << ". "
+                             << history[i] << endl;
+                    }
+                }
+
+                break;
+            }
+
+            // ==========================================
+            // 14. CLEAR HISTORY
+            // ==========================================
+            case 14:
+            {
+                if (history.empty())
+                {
+                    cout << "\nHistory is already empty." << endl;
+                }
+                else
+                {
+                    history.clear();
+
+                    cout << "\nHistory cleared successfully!" << endl;
+                }
+
+                break;
+            }
+
+            // ==========================================
+            // 15. EXIT
+            // ==========================================
+            case 15:
             {
                 cout << "\n============================================" << endl;
                 cout << "       Thank you for using CalcNova!" << endl;
@@ -283,15 +463,17 @@ int main()
                 break;
             }
 
-            // Invalid Choice
+            // ==========================================
+            // INVALID CHOICE
+            // ==========================================
             default:
             {
                 cout << "\nError: Invalid choice!" << endl;
-                cout << "Please select a number between 1 and 13." << endl;
+                cout << "Please select a number between 1 and 15." << endl;
             }
         }
 
-    } while(choice != 13);
+    } while(choice != 15);
 
     return 0;
 }
