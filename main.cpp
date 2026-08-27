@@ -5,19 +5,19 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
-#include <ctime>
 
 using namespace std;
 
-// =====================================================
-// GLOBAL HISTORY
-// =====================================================
+// ======================================================
+// GLOBAL VARIABLES
+// ======================================================
 
 vector<string> history;
+const string HISTORY_FILE = "history.txt";
 
-// =====================================================
-// CLEAR INPUT
-// =====================================================
+// ======================================================
+// INPUT BUFFER CLEAR
+// ======================================================
 
 void clearInput()
 {
@@ -25,63 +25,20 @@ void clearInput()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-// =====================================================
-// GET CURRENT DATE & TIME
-// =====================================================
-
-string getDateTime()
-{
-    time_t now = time(nullptr);
-    tm *localTime = localtime(&now);
-
-    char buffer[100];
-
-    strftime(
-        buffer,
-        sizeof(buffer),
-        "%d-%m-%Y %H:%M:%S",
-        localTime
-    );
-
-    return string(buffer);
-}
-
-// =====================================================
-// SAVE HISTORY
-// =====================================================
-
-void saveHistory()
-{
-    ofstream file("history.txt");
-
-    if (!file)
-    {
-        cout << "\n[ERROR] Unable to save history.\n";
-        return;
-    }
-
-    for (const string &item : history)
-    {
-        file << item << endl;
-    }
-
-    file.close();
-}
-
-// =====================================================
-// LOAD HISTORY
-// =====================================================
+// ======================================================
+// LOAD HISTORY FROM FILE
+// ======================================================
 
 void loadHistory()
 {
-    ifstream file("history.txt");
+    ifstream inputFile(HISTORY_FILE);
 
-    if (!file)
+    if (!inputFile.is_open())
         return;
 
     string line;
 
-    while (getline(file, line))
+    while (getline(inputFile, line))
     {
         if (!line.empty())
         {
@@ -89,205 +46,175 @@ void loadHistory()
         }
     }
 
-    file.close();
+    inputFile.close();
 }
 
-// =====================================================
-// ADD TO HISTORY
-// =====================================================
+// ======================================================
+// SAVE HISTORY TO FILE
+// ======================================================
+
+void saveHistory()
+{
+    ofstream outputFile(HISTORY_FILE);
+
+    if (!outputFile.is_open())
+    {
+        cout << "\n[ERROR] Unable to save history.\n";
+        return;
+    }
+
+    for (const string &calculation : history)
+    {
+        outputFile << calculation << endl;
+    }
+
+    outputFile.close();
+}
+
+// ======================================================
+// ADD CALCULATION TO HISTORY
+// ======================================================
 
 void addToHistory(string calculation)
 {
-    string record =
-        "[" + getDateTime() + "] " + calculation;
-
-    history.push_back(record);
-
+    history.push_back(calculation);
     saveHistory();
 }
 
-// =====================================================
-// SHOW HISTORY
-// =====================================================
+// ======================================================
+// VIEW HISTORY
+// ======================================================
 
-void showHistory()
+void viewHistory()
 {
     cout << "\n";
     cout << "====================================================\n";
-    cout << "                CALCULATION HISTORY\n";
+    cout << "                  CALCULATION HISTORY\n";
     cout << "====================================================\n";
 
     if (history.empty())
     {
-        cout << "\nNo calculation history available.\n";
+        cout << "\nNo calculations yet.\n";
     }
     else
     {
-        int number = 1;
-
-        // Latest calculation first
-        for (int i = static_cast<int>(history.size()) - 1;
-             i >= 0;
-             i--)
+        for (size_t i = 0; i < history.size(); i++)
         {
-            cout << number << ". "
-                 << history[i] << endl;
-
-            number++;
+            cout << i + 1 << ". " << history[i] << endl;
         }
     }
 
     cout << "====================================================\n";
 }
 
-// =====================================================
+// ======================================================
 // CLEAR HISTORY
-// =====================================================
+// ======================================================
 
 void clearHistory()
 {
-    if (history.empty())
+    history.clear();
+
+    ofstream outputFile(HISTORY_FILE, ios::trunc);
+
+    if (outputFile.is_open())
     {
-        cout << "\nHistory is already empty.\n";
-        return;
-    }
-
-    char choice;
-
-    cout << "\nAre you sure you want to delete all history? (y/n): ";
-    cin >> choice;
-
-    if (choice == 'y' || choice == 'Y')
-    {
-        history.clear();
-
-        ofstream file("history.txt", ios::trunc);
-        file.close();
-
-        cout << "\nHistory cleared successfully.\n";
+        outputFile.close();
+        cout << "\nHistory cleared successfully!\n";
     }
     else
     {
-        cout << "\nHistory was not cleared.\n";
+        cout << "\n[ERROR] Unable to clear history file.\n";
     }
 }
 
-// =====================================================
+// ======================================================
+// GET VALID NUMBER
+// ======================================================
+
+double getNumber(string message)
+{
+    double number;
+
+    while (true)
+    {
+        cout << message;
+
+        if (cin >> number)
+        {
+            return number;
+        }
+
+        cout << "[ERROR] Please enter a valid number.\n";
+        clearInput();
+    }
+}
+
+// ======================================================
 // ADDITION
-// =====================================================
+// ======================================================
 
 void addition()
 {
-    double a, b;
-
-    cout << "\nEnter first number: ";
-    cin >> a;
-
-    cout << "Enter second number: ";
-    cin >> b;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double a = getNumber("Enter first number: ");
+    double b = getNumber("Enter second number: ");
 
     double result = a + b;
 
     cout << "\nResult = " << result << endl;
 
     addToHistory(
-        to_string(a) + " + " +
-        to_string(b) + " = " +
-        to_string(result)
+        to_string(a) + " + " + to_string(b) +
+        " = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // SUBTRACTION
-// =====================================================
+// ======================================================
 
 void subtraction()
 {
-    double a, b;
-
-    cout << "\nEnter first number: ";
-    cin >> a;
-
-    cout << "Enter second number: ";
-    cin >> b;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double a = getNumber("Enter first number: ");
+    double b = getNumber("Enter second number: ");
 
     double result = a - b;
 
     cout << "\nResult = " << result << endl;
 
     addToHistory(
-        to_string(a) + " - " +
-        to_string(b) + " = " +
-        to_string(result)
+        to_string(a) + " - " + to_string(b) +
+        " = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // MULTIPLICATION
-// =====================================================
+// ======================================================
 
 void multiplication()
 {
-    double a, b;
-
-    cout << "\nEnter first number: ";
-    cin >> a;
-
-    cout << "Enter second number: ";
-    cin >> b;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double a = getNumber("Enter first number: ");
+    double b = getNumber("Enter second number: ");
 
     double result = a * b;
 
     cout << "\nResult = " << result << endl;
 
     addToHistory(
-        to_string(a) + " * " +
-        to_string(b) + " = " +
-        to_string(result)
+        to_string(a) + " * " + to_string(b) +
+        " = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // DIVISION
-// =====================================================
+// ======================================================
 
 void division()
 {
-    double a, b;
-
-    cout << "\nEnter dividend: ";
-    cin >> a;
-
-    cout << "Enter divisor: ";
-    cin >> b;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double a = getNumber("Enter numerator: ");
+    double b = getNumber("Enter denominator: ");
 
     if (b == 0)
     {
@@ -300,31 +227,35 @@ void division()
     cout << "\nResult = " << result << endl;
 
     addToHistory(
-        to_string(a) + " / " +
-        to_string(b) + " = " +
-        to_string(result)
+        to_string(a) + " / " + to_string(b) +
+        " = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // MODULUS
-// =====================================================
+// ======================================================
 
-void modulo()
+void modulus()
 {
-    int a, b;
+    long long a, b;
 
-    cout << "\nEnter first integer: ";
-    cin >> a;
+    cout << "Enter first integer: ";
+
+    while (!(cin >> a))
+    {
+        cout << "[ERROR] Please enter a valid integer.\n";
+        clearInput();
+        cout << "Enter first integer: ";
+    }
 
     cout << "Enter second integer: ";
-    cin >> b;
 
-    if (cin.fail())
+    while (!(cin >> b))
     {
+        cout << "[ERROR] Please enter a valid integer.\n";
         clearInput();
-        cout << "\n[ERROR] Please enter integers only.\n";
-        return;
+        cout << "Enter second integer: ";
     }
 
     if (b == 0)
@@ -333,76 +264,53 @@ void modulo()
         return;
     }
 
-    int result = a % b;
+    long long result = a % b;
 
     cout << "\nResult = " << result << endl;
 
     addToHistory(
-        to_string(a) + " % " +
-        to_string(b) + " = " +
-        to_string(result)
+        to_string(a) + " % " + to_string(b) +
+        " = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // POWER
-// =====================================================
+// ======================================================
 
 void power()
 {
-    double base, exponent;
-
-    cout << "\nEnter base: ";
-    cin >> base;
-
-    cout << "Enter exponent: ";
-    cin >> exponent;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double base = getNumber("Enter base: ");
+    double exponent = getNumber("Enter exponent: ");
 
     double result = pow(base, exponent);
 
     cout << "\nResult = " << result << endl;
 
     addToHistory(
-        to_string(base) + " ^ " +
-        to_string(exponent) + " = " +
+        "pow(" + to_string(base) + ", " +
+        to_string(exponent) + ") = " +
         to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // SQUARE ROOT
-// =====================================================
+// ======================================================
 
 void squareRoot()
 {
-    double number;
-
-    cout << "\nEnter number: ";
-    cin >> number;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double number = getNumber("Enter number: ");
 
     if (number < 0)
     {
-        cout << "\n[ERROR] Square root of negative number is not valid.\n";
+        cout << "\n[ERROR] Square root of negative number is not allowed.\n";
         return;
     }
 
     double result = sqrt(number);
 
-    cout << "\nSquare Root = " << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "sqrt(" + to_string(number) +
@@ -410,33 +318,23 @@ void squareRoot()
     );
 }
 
-// =====================================================
+// ======================================================
 // NATURAL LOG
-// =====================================================
+// ======================================================
 
 void naturalLog()
 {
-    double number;
-
-    cout << "\nEnter number: ";
-    cin >> number;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double number = getNumber("Enter number: ");
 
     if (number <= 0)
     {
-        cout << "\n[ERROR] Natural log requires number > 0.\n";
+        cout << "\n[ERROR] Natural logarithm requires number > 0.\n";
         return;
     }
 
     double result = log(number);
 
-    cout << "\nNatural Log = " << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "ln(" + to_string(number) +
@@ -444,33 +342,23 @@ void naturalLog()
     );
 }
 
-// =====================================================
+// ======================================================
 // LOG BASE 10
-// =====================================================
+// ======================================================
 
 void logBase10()
 {
-    double number;
-
-    cout << "\nEnter number: ";
-    cin >> number;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double number = getNumber("Enter number: ");
 
     if (number <= 0)
     {
-        cout << "\n[ERROR] Log requires number > 0.\n";
+        cout << "\n[ERROR] Logarithm requires number > 0.\n";
         return;
     }
 
     double result = log10(number);
 
-    cout << "\nLog Base 10 = " << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "log10(" + to_string(number) +
@@ -478,93 +366,57 @@ void logBase10()
     );
 }
 
-// =====================================================
+// ======================================================
 // SINE
-// =====================================================
+// ======================================================
 
 void sine()
 {
-    double angle;
+    double angle = getNumber("Enter angle in degrees: ");
 
-    cout << "\nEnter angle in degrees: ";
-    cin >> angle;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
-
-    const double PI = acos(-1.0);
-
-    double radians = angle * PI / 180.0;
+    double radians = angle * M_PI / 180.0;
     double result = sin(radians);
 
-    cout << "\nSin(" << angle << ") = "
-         << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "sin(" + to_string(angle) +
-        ") = " + to_string(result)
+        " degrees) = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // COSINE
-// =====================================================
+// ======================================================
 
 void cosine()
 {
-    double angle;
+    double angle = getNumber("Enter angle in degrees: ");
 
-    cout << "\nEnter angle in degrees: ";
-    cin >> angle;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
-
-    const double PI = acos(-1.0);
-
-    double radians = angle * PI / 180.0;
+    double radians = angle * M_PI / 180.0;
     double result = cos(radians);
 
-    cout << "\nCos(" << angle << ") = "
-         << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "cos(" + to_string(angle) +
-        ") = " + to_string(result)
+        " degrees) = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // TANGENT
-// =====================================================
+// ======================================================
 
 void tangent()
 {
-    double angle;
+    double angle = getNumber("Enter angle in degrees: ");
 
-    cout << "\nEnter angle in degrees: ";
-    cin >> angle;
+    double radians = angle * M_PI / 180.0;
 
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double cosineValue = cos(radians);
 
-    const double PI = acos(-1.0);
-
-    double radians = angle * PI / 180.0;
-
-    if (fabs(cos(radians)) < 1e-10)
+    if (fabs(cosineValue) < 1e-10)
     {
         cout << "\n[ERROR] Tangent is undefined for this angle.\n";
         return;
@@ -572,103 +424,75 @@ void tangent()
 
     double result = tan(radians);
 
-    cout << "\nTan(" << angle << ") = "
-         << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "tan(" + to_string(angle) +
-        ") = " + to_string(result)
+        " degrees) = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // PERCENTAGE
-// =====================================================
+// ======================================================
 
 void percentage()
 {
-    double number;
-
-    cout << "\nEnter number: ";
-    cin >> number;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double number = getNumber("Enter number: ");
 
     double result = number / 100.0;
 
-    cout << "\nPercentage = "
-         << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
-        to_string(number) +
-        "% = " +
+        to_string(number) + "% = " +
         to_string(result)
     );
 }
 
-// =====================================================
-// PI
-// =====================================================
+// ======================================================
+// PI VALUE
+// ======================================================
 
 void piValue()
 {
-    const double PI = acos(-1.0);
-
     cout << fixed << setprecision(10);
 
-    cout << "\nPi = "
-         << PI << endl;
+    cout << "\nPI = " << M_PI << endl;
 
     addToHistory(
-        "Pi = " + to_string(PI)
+        "PI = " + to_string(M_PI)
     );
 }
 
-// =====================================================
-// EULER NUMBER
-// =====================================================
+// ======================================================
+// E VALUE
+// ======================================================
 
 void eValue()
 {
-    const double E = exp(1.0);
+    double result = exp(1.0);
 
     cout << fixed << setprecision(10);
 
-    cout << "\nEuler's Number = "
-         << E << endl;
+    cout << "\ne = " << result << endl;
 
     addToHistory(
-        "e = " + to_string(E)
+        "e = " + to_string(result)
     );
 }
 
-// =====================================================
+// ======================================================
 // ABSOLUTE VALUE
-// =====================================================
+// ======================================================
 
 void absoluteValue()
 {
-    double number;
-
-    cout << "\nEnter number: ";
-    cin >> number;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double number = getNumber("Enter number: ");
 
     double result = fabs(number);
 
-    cout << "\nAbsolute Value = "
-         << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "abs(" + to_string(number) +
@@ -676,23 +500,13 @@ void absoluteValue()
     );
 }
 
-// =====================================================
+// ======================================================
 // RECIPROCAL
-// =====================================================
+// ======================================================
 
 void reciprocal()
 {
-    double number;
-
-    cout << "\nEnter number: ";
-    cin >> number;
-
-    if (cin.fail())
-    {
-        clearInput();
-        cout << "\n[ERROR] Invalid input.\n";
-        return;
-    }
+    double number = getNumber("Enter number: ");
 
     if (number == 0)
     {
@@ -702,8 +516,7 @@ void reciprocal()
 
     double result = 1.0 / number;
 
-    cout << "\nReciprocal = "
-         << result << endl;
+    cout << "\nResult = " << result << endl;
 
     addToHistory(
         "1/" + to_string(number) +
@@ -711,105 +524,91 @@ void reciprocal()
     );
 }
 
-// =====================================================
-// ABOUT CALCNOVA
-// =====================================================
+// ======================================================
+// ABOUT
+// ======================================================
 
-void aboutCalcNova()
+void about()
 {
     cout << "\n";
     cout << "====================================================\n";
     cout << "                    ABOUT CALCNOVA\n";
     cout << "====================================================\n";
-
-    cout << "\nCalcNova is a console-based scientific calculator.\n";
-
-    cout << "\nFeatures:\n";
-    cout << " - Basic arithmetic operations\n";
-    cout << " - Scientific calculations\n";
-    cout << " - Trigonometric functions\n";
-    cout << " - Percentage calculation\n";
-    cout << " - Pi and Euler's number\n";
-    cout << " - Absolute value and reciprocal\n";
-    cout << " - Calculation history\n";
-    cout << " - Persistent history storage\n";
-    cout << " - Input validation and error handling\n";
-
-    cout << "\nTechnology:\n";
-    cout << " - Programming Language: C++\n";
-    cout << " - Application Type: Console Application\n";
-
-    cout << "\nVersion: CalcNova v1.6\n";
-
-    cout << "\n====================================================\n";
+    cout << "CalcNova - Scientific Calculator\n";
+    cout << "\n";
+    cout << "Version : 2.0\n";
+    cout << "Language: C++\n";
+    cout << "\n";
+    cout << "Features:\n";
+    cout << "- Basic arithmetic operations\n";
+    cout << "- Scientific calculations\n";
+    cout << "- Trigonometric functions\n";
+    cout << "- Calculation history\n";
+    cout << "- File-based history storage\n";
+    cout << "- Input validation\n";
+    cout << "\n";
+    cout << "Developed as a C++ project.\n";
+    cout << "====================================================\n";
 }
 
-// =====================================================
+// ======================================================
 // HELP
-// =====================================================
+// ======================================================
 
-void showHelp()
+void help()
 {
     cout << "\n";
     cout << "====================================================\n";
-    cout << "                    CALCNOVA HELP\n";
+    cout << "                       HELP\n";
     cout << "====================================================\n";
-
-    cout << "\nBASIC OPERATIONS\n";
-    cout << "1  -> Addition\n";
-    cout << "2  -> Subtraction\n";
-    cout << "3  -> Multiplication\n";
-    cout << "4  -> Division\n";
-    cout << "5  -> Modulus\n";
-
-    cout << "\nSCIENTIFIC OPERATIONS\n";
-    cout << "6  -> Power\n";
-    cout << "7  -> Square Root\n";
-    cout << "8  -> Natural Log\n";
-    cout << "9  -> Log Base 10\n";
-
-    cout << "\nTRIGONOMETRY\n";
-    cout << "10 -> Sin\n";
-    cout << "11 -> Cos\n";
-    cout << "12 -> Tan\n";
-
-    cout << "\nOTHER OPERATIONS\n";
-    cout << "13 -> Percentage\n";
-    cout << "14 -> Pi\n";
-    cout << "15 -> Euler's Number\n";
-    cout << "16 -> Absolute Value\n";
-    cout << "17 -> Reciprocal\n";
-
-    cout << "\nHISTORY\n";
-    cout << "18 -> Show History\n";
-    cout << "19 -> Clear History\n";
-
-    cout << "\nINFORMATION\n";
-    cout << "20 -> About CalcNova\n";
-    cout << "21 -> Help\n";
-    cout << "22 -> Exit\n";
-
-    cout << "\nIMPORTANT:\n";
-    cout << " - Trigonometric angles are entered in degrees.\n";
-    cout << " - Division by zero is not allowed.\n";
-    cout << " - Square root requires a non-negative number.\n";
-    cout << " - Logarithms require a positive number.\n";
-    cout << " - Reciprocal of zero is undefined.\n";
-
-    cout << "\n====================================================\n";
+    cout << "\n";
+    cout << "Basic Operations:\n";
+    cout << "1-5   : Arithmetic operations\n";
+    cout << "\n";
+    cout << "Scientific Operations:\n";
+    cout << "6     : Power\n";
+    cout << "7     : Square Root\n";
+    cout << "8     : Natural Log\n";
+    cout << "9     : Log Base 10\n";
+    cout << "\n";
+    cout << "Trigonometry:\n";
+    cout << "10    : Sin\n";
+    cout << "11    : Cos\n";
+    cout << "12    : Tan\n";
+    cout << "\n";
+    cout << "Other Operations:\n";
+    cout << "13    : Percentage\n";
+    cout << "14    : PI\n";
+    cout << "15    : e\n";
+    cout << "16    : Absolute Value\n";
+    cout << "17    : Reciprocal\n";
+    cout << "\n";
+    cout << "History:\n";
+    cout << "18    : View History\n";
+    cout << "19    : Clear History\n";
+    cout << "\n";
+    cout << "20    : About\n";
+    cout << "21    : Help\n";
+    cout << "22    : Exit\n";
+    cout << "\n";
+    cout << "Important:\n";
+    cout << "- Trigonometric angles are entered in degrees.\n";
+    cout << "- Division by zero is not allowed.\n";
+    cout << "- Logarithm requires a positive number.\n";
+    cout << "- Square root requires a non-negative number.\n";
+    cout << "====================================================\n";
 }
 
-// =====================================================
+// ======================================================
 // DISPLAY MENU
-// =====================================================
+// ======================================================
 
 void displayMenu()
 {
     cout << "\n\n";
-
     cout << "====================================================\n";
-    cout << "                  CALCNOVA\n";
-    cout << "             SCIENTIFIC CALCULATOR\n";
+    cout << "                    CALCNOVA\n";
+    cout << "              SCIENTIFIC CALCULATOR\n";
     cout << "====================================================\n";
 
     cout << "\n[ BASIC OPERATIONS ]\n";
@@ -832,32 +631,33 @@ void displayMenu()
 
     cout << "\n[ OTHER OPERATIONS ]\n";
     cout << "13. Percentage\n";
-    cout << "14. Pi\n";
-    cout << "15. Euler's Number\n";
+    cout << "14. PI Value\n";
+    cout << "15. e Value\n";
     cout << "16. Absolute Value\n";
-    cout << "17. Reciprocal\n";
+    cout << "17. Reciprocal (1/x)\n";
 
     cout << "\n[ HISTORY ]\n";
-    cout << "18. Show History\n";
+    cout << "18. View History\n";
     cout << "19. Clear History\n";
 
     cout << "\n[ INFORMATION ]\n";
-    cout << "20. About CalcNova\n";
+    cout << "20. About\n";
     cout << "21. Help\n";
 
     cout << "\n22. Exit\n";
 
-    cout << "\n====================================================\n";
+    cout << "====================================================\n";
 }
 
-// =====================================================
-// MAIN
-// =====================================================
+// ======================================================
+// MAIN FUNCTION
+// ======================================================
 
 int main()
 {
     int choice;
 
+    // Load previous calculations
     loadHistory();
 
     do
@@ -865,14 +665,11 @@ int main()
         displayMenu();
 
         cout << "\nEnter your choice: ";
-        cin >> choice;
 
-        if (cin.fail())
+        if (!(cin >> choice))
         {
-            clearInput();
-
             cout << "\n[ERROR] Please enter a valid integer.\n";
-
+            clearInput();
             continue;
         }
 
@@ -895,7 +692,7 @@ int main()
                 break;
 
             case 5:
-                modulo();
+                modulus();
                 break;
 
             case 6:
@@ -947,7 +744,7 @@ int main()
                 break;
 
             case 18:
-                showHistory();
+                viewHistory();
                 break;
 
             case 19:
@@ -955,16 +752,17 @@ int main()
                 break;
 
             case 20:
-                aboutCalcNova();
+                about();
                 break;
 
             case 21:
-                showHelp();
+                help();
                 break;
 
             case 22:
-                cout << "\n====================================================\n";
-                cout << "          Thank you for using CalcNova!\n";
+                cout << "\n";
+                cout << "====================================================\n";
+                cout << "             Thank you for using CalcNova!\n";
                 cout << "                    Goodbye!\n";
                 cout << "====================================================\n";
                 break;
@@ -977,11 +775,7 @@ int main()
         {
             cout << "\nPress Enter to continue...";
 
-            cin.ignore(
-                numeric_limits<streamsize>::max(),
-                '\n'
-            );
-
+            clearInput();
             cin.get();
         }
 
