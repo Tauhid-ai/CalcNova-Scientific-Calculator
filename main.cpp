@@ -1981,6 +1981,100 @@ void primeNumberChecker()
 }
 
 // ======================================================
+// ARMSTRONG NUMBER CHECKER - OPTION 50
+// ======================================================
+void armstrongNumberChecker()
+{
+    cout << "\n====================================================\n";
+    cout << "                ARMSTRONG NUMBER CHECKER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a non-negative integer: ");
+
+    if (n < 0)
+    {
+        cout << "\n[ERROR] Please enter a non-negative integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    long long original = n;
+    long long temp = n;
+    int digits = (n == 0) ? 1 : static_cast<int>(to_string(n).length());
+    long long sum = 0;
+
+    while (temp > 0)
+    {
+        int digit = static_cast<int>(temp % 10);
+        long long powerValue = 1;
+
+        for (int i = 0; i < digits; ++i)
+            powerValue *= digit;
+
+        sum += powerValue;
+        temp /= 10;
+    }
+
+    bool isArmstrong = (sum == original);
+
+    cout << "\n----------------------------------------------------\n";
+    cout << original << (isArmstrong
+        ? " is an ARMSTRONG number.\n"
+        : " is NOT an ARMSTRONG number.\n");
+    cout << "----------------------------------------------------\n";
+
+    setPreviousAnswer(isArmstrong ? 1.0 : 0.0);
+    addToHistory(to_string(original) +
+                 (isArmstrong ? " is Armstrong" : " is not Armstrong"));
+
+    cout << "====================================================\n";
+}
+
+// ======================================================
+// PALINDROME NUMBER CHECKER - OPTION 51
+// ======================================================
+void palindromeNumberChecker()
+{
+    cout << "\n====================================================\n";
+    cout << "                PALINDROME NUMBER CHECKER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a non-negative integer: ");
+
+    if (n < 0)
+    {
+        cout << "\n[ERROR] Please enter a non-negative integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    long long original = n;
+    long long temp = n;
+    long long reversed = 0;
+
+    while (temp > 0)
+    {
+        int digit = static_cast<int>(temp % 10);
+        reversed = reversed * 10 + digit;
+        temp /= 10;
+    }
+
+    bool isPalindrome = (original == reversed);
+
+    cout << "\n----------------------------------------------------\n";
+    cout << original << (isPalindrome
+        ? " is a PALINDROME number.\n"
+        : " is NOT a PALINDROME number.\n");
+    cout << "----------------------------------------------------\n";
+
+    setPreviousAnswer(isPalindrome ? 1.0 : 0.0);
+    addToHistory(to_string(original) +
+                 (isPalindrome ? " is palindrome" : " is not palindrome"));
+
+    cout << "====================================================\n";
+}
+
+// ======================================================
 // MENU
 // ======================================================
 
@@ -2054,6 +2148,7 @@ void displayMenu()
     cout << "48. Determinant Calculator\n";
     cout << "49. Prime Number Checker\n";
     cout << "50. Armstrong Number Checker\n";
+    cout << "51. Palindrome Number Checker\n";
 
     cout << "\n====================================================\n";
 }
@@ -2061,88 +2156,6 @@ void displayMenu()
 // ======================================================
 // MAIN
 // ======================================================
-
-void armstrongNumberChecker();
-
-
-// ======================================================
-// ARMSTRONG NUMBER CHECKER - OPTION 50
-// ======================================================
-
-void armstrongNumberChecker()
-{
-    cout << "\n====================================================\n";
-    cout << "              ARMSTRONG NUMBER CHECKER\n";
-    cout << "====================================================\n";
-
-    long long number;
-
-    cout << "Enter a non-negative integer: ";
-
-    while (!(cin >> number) || number < 0)
-    {
-        cout << "[ERROR] Please enter a non-negative integer: ";
-        clearInput();
-    }
-
-    long long original = number;
-    long long temp = number;
-    long long sum = 0;
-
-    int digits = (number == 0) ? 1 : 0;
-
-    while (temp > 0)
-    {
-        digits++;
-        temp /= 10;
-    }
-
-    temp = number;
-
-    while (temp > 0)
-    {
-        int digit = static_cast<int>(temp % 10);
-        long long powerValue = 1;
-
-        for (int i = 0; i < digits; ++i)
-            powerValue *= digit;
-
-        sum += powerValue;
-        temp /= 10;
-    }
-
-    // 0 is an Armstrong number.
-    if (number == 0)
-        sum = 0;
-
-    cout << "\nNumber = " << original << '\n';
-    cout << "Digits = " << digits << '\n';
-    cout << "Armstrong Sum = " << sum << '\n';
-
-    if (sum == original)
-    {
-        cout << "\nResult: " << original
-             << " is an Armstrong Number.\n";
-
-        addToHistory(
-            "Armstrong check: " + to_string(original) + " = YES"
-        );
-    }
-    else
-    {
-        cout << "\nResult: " << original
-             << " is NOT an Armstrong Number.\n";
-
-        addToHistory(
-            "Armstrong check: " + to_string(original) + " = NO"
-        );
-    }
-
-    setPreviousAnswer(static_cast<double>(sum));
-
-    cout << "====================================================\n";
-}
-
 
 int main()
 {
@@ -2228,9 +2241,10 @@ int main()
             case 48: determinantCalculator(); break;
             case 49: primeNumberChecker(); break;
             case 50: armstrongNumberChecker(); break;
+            case 51: palindromeNumberChecker(); break;
 
             default:
-                cout << "\n[ERROR] Invalid choice. Please enter 1-50.\n";
+                cout << "\n[ERROR] Invalid choice. Please enter 1-51.\n";
         }
 
         if (choice != 22)
