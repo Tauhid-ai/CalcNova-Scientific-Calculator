@@ -2330,6 +2330,8 @@ void displayMenu()
     cout << "52. Perfect Number Checker\n";
     cout << "53. Strong Number Checker\n";
     cout << "54. Automorphic Number Checker\n";
+    cout << "55. Harshad Number Checker\n";
+    cout << "56. Fibonacci Series Generator\n";
 
     cout << "\n====================================================\n";
 }
@@ -2337,6 +2339,105 @@ void displayMenu()
 // ======================================================
 // MAIN
 // ======================================================
+
+
+// ====================================================
+// FIBONACCI SERIES GENERATOR - OPTION 56
+// ====================================================
+void fibonacciSeriesGenerator()
+{
+    cout << "\n====================================================\n";
+    cout << "              FIBONACCI SERIES GENERATOR\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter number of terms: ");
+
+    if (n <= 0)
+    {
+        cout << "\n[ERROR] Please enter a positive number of terms.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    if (n > 93)
+    {
+        cout << "\n[ERROR] Maximum supported terms are 93.\n";
+        cout << "(To keep Fibonacci values within long long range.)\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    unsigned long long first = 0;
+    unsigned long long second = 1;
+    unsigned long long lastTerm = 0;
+
+    cout << "\nFibonacci Series:\n";
+
+    for (long long i = 1; i <= n; ++i)
+    {
+        cout << first;
+        lastTerm = first;
+
+        if (i < n)
+            cout << " ";
+
+        unsigned long long next = first + second;
+        first = second;
+        second = next;
+    }
+
+    cout << "\n";
+    cout << "----------------------------------------------------\n";
+    cout << "Total terms = " << n << '\n';
+    cout << "----------------------------------------------------\n";
+
+    setPreviousAnswer(static_cast<double>(lastTerm));
+    addToHistory("Generated Fibonacci series of " + to_string(n) + " terms");
+
+    cout << "====================================================\n";
+}
+
+// ====================================================
+// HARSHAD NUMBER CHECKER - OPTION 55
+// ====================================================
+void harshadNumberChecker()
+{
+    cout << "\n====================================================\n";
+    cout << "                  HARSHAD NUMBER CHECKER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a positive integer: ");
+
+    if (n <= 0)
+    {
+        cout << "\n[ERROR] Please enter a positive integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    long long temp = n;
+    long long digitSum = 0;
+
+    while (temp > 0)
+    {
+        digitSum += temp % 10;
+        temp /= 10;
+    }
+
+    bool isHarshad = (digitSum != 0 && n % digitSum == 0);
+
+    cout << "\n----------------------------------------------------\n";
+    cout << "Sum of digits = " << digitSum << '\n';
+    cout << n << (isHarshad
+        ? " is a HARSHAD number.\n"
+        : " is NOT a HARSHAD number.\n");
+    cout << "----------------------------------------------------\n";
+
+    setPreviousAnswer(isHarshad ? 1.0 : 0.0);
+    addToHistory(to_string(n) + (isHarshad ? " is Harshad" : " is not Harshad"));
+
+    cout << "====================================================\n";
+}
 
 int main()
 {
@@ -2426,9 +2527,11 @@ int main()
             case 52: perfectNumberChecker(); break;
             case 53: strongNumberChecker(); break;
             case 54: automorphicNumberChecker(); break;
+            case 55: harshadNumberChecker(); break;
+            case 56: fibonacciSeriesGenerator(); break;
 
             default:
-                cout << "\n[ERROR] Invalid choice. Please enter 1-54.\n";
+                cout << "\n[ERROR] Invalid choice. Please enter 1-56.\n";
         }
 
         if (choice != 22)
