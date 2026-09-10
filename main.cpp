@@ -2075,6 +2075,184 @@ void palindromeNumberChecker()
 }
 
 // ======================================================
+// PERFECT NUMBER CHECKER - OPTION 52
+// ======================================================
+
+void perfectNumberChecker()
+{
+    cout << "\n====================================================\n";
+    cout << "                PERFECT NUMBER CHECKER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a positive integer: ");
+
+    if (n <= 0)
+    {
+        cout << "\n[ERROR] Please enter a positive integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    if (n == 1)
+    {
+        cout << "\n1 is NOT a PERFECT number.\n";
+        cout << "Proper divisors: none\n";
+        cout << "Sum of proper divisors = 0\n";
+        cout << "----------------------------------------------------\n";
+        setPreviousAnswer(0.0);
+        addToHistory("1 is not perfect");
+        cout << "====================================================\n";
+        return;
+    }
+
+    long long sum = 1;
+
+    for (long long i = 2; i <= n / i; ++i)
+    {
+        if (n % i == 0)
+        {
+            sum += i;
+
+            long long pairedDivisor = n / i;
+            if (pairedDivisor != i)
+                sum += pairedDivisor;
+        }
+    }
+
+    bool isPerfect = (sum == n);
+
+    cout << "\n----------------------------------------------------\n";
+    cout << "Sum of proper divisors = " << sum << '\n';
+    cout << n << (isPerfect
+        ? " is a PERFECT number.\n"
+        : " is NOT a PERFECT number.\n");
+    cout << "----------------------------------------------------\n";
+
+    setPreviousAnswer(isPerfect ? 1.0 : 0.0);
+    addToHistory(to_string(n) +
+                 (isPerfect ? " is perfect" : " is not perfect"));
+
+    cout << "====================================================\n";
+}
+
+// ======================================================
+// STRONG NUMBER CHECKER - OPTION 53
+// ======================================================
+
+void strongNumberChecker()
+{
+    cout << "\n====================================================\n";
+    cout << "              STRONG NUMBER CHECKER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a positive integer: ");
+
+    if (n <= 0)
+    {
+        cout << "\n[ERROR] Please enter a positive integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    long long original = n;
+    long long temp = n;
+    long long sum = 0;
+
+    while (temp > 0)
+    {
+        int digit = static_cast<int>(temp % 10);
+
+        long long digitFactorial = 1;
+        for (int i = 2; i <= digit; ++i)
+        {
+            digitFactorial *= i;
+        }
+
+        sum += digitFactorial;
+        temp /= 10;
+    }
+
+    cout << "\n----------------------------------------------------\n";
+    cout << "Sum of factorials of digits = " << sum << '\n';
+
+    if (sum == original)
+    {
+        cout << original << " is a STRONG number.\n";
+        setPreviousAnswer(1.0);
+        addToHistory(to_string(original) + " is a strong number");
+    }
+    else
+    {
+        cout << original << " is NOT a STRONG number.\n";
+        setPreviousAnswer(0.0);
+        addToHistory(to_string(original) + " is not a strong number");
+    }
+
+    cout << "----------------------------------------------------\n";
+    cout << "====================================================\n";
+}
+
+// ======================================================
+// AUTOMORPHIC NUMBER CHECKER - OPTION 54
+// ======================================================
+
+void automorphicNumberChecker()
+{
+    cout << "\n====================================================\n";
+    cout << "              AUTOMORPHIC NUMBER CHECKER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a non-negative integer: ");
+
+    if (n < 0)
+    {
+        cout << "\n[ERROR] Please enter a non-negative integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    // Keep n*n safely inside signed long long.
+    if (n > 3037000499LL)
+    {
+        cout << "\n[ERROR] Number is too large for this checker.\n";
+        cout << "Please enter a number up to 3037000499.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    long long square = n * n;
+    int digits = (n == 0) ? 1 : static_cast<int>(to_string(n).length());
+
+    long long modulus = 1;
+    for (int i = 0; i < digits; ++i)
+    {
+        modulus *= 10;
+    }
+
+    long long lastDigits = square % modulus;
+
+    cout << "\n----------------------------------------------------\n";
+    cout << "Square = " << square << '\n';
+    cout << "Last " << digits << " digit(s) = " << lastDigits << '\n';
+
+    if (lastDigits == n)
+    {
+        cout << n << " is an AUTOMORPHIC number.\n";
+        setPreviousAnswer(1.0);
+        addToHistory(to_string(n) + " is an automorphic number");
+    }
+    else
+    {
+        cout << n << " is NOT an AUTOMORPHIC number.\n";
+        setPreviousAnswer(0.0);
+        addToHistory(to_string(n) + " is not an automorphic number");
+    }
+
+    cout << "----------------------------------------------------\n";
+    cout << "====================================================\n";
+}
+
+// ======================================================
 // MENU
 // ======================================================
 
@@ -2149,6 +2327,9 @@ void displayMenu()
     cout << "49. Prime Number Checker\n";
     cout << "50. Armstrong Number Checker\n";
     cout << "51. Palindrome Number Checker\n";
+    cout << "52. Perfect Number Checker\n";
+    cout << "53. Strong Number Checker\n";
+    cout << "54. Automorphic Number Checker\n";
 
     cout << "\n====================================================\n";
 }
@@ -2242,9 +2423,12 @@ int main()
             case 49: primeNumberChecker(); break;
             case 50: armstrongNumberChecker(); break;
             case 51: palindromeNumberChecker(); break;
+            case 52: perfectNumberChecker(); break;
+            case 53: strongNumberChecker(); break;
+            case 54: automorphicNumberChecker(); break;
 
             default:
-                cout << "\n[ERROR] Invalid choice. Please enter 1-51.\n";
+                cout << "\n[ERROR] Invalid choice. Please enter 1-54.\n";
         }
 
         if (choice != 22)
