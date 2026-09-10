@@ -2332,6 +2332,7 @@ void displayMenu()
     cout << "54. Automorphic Number Checker\n";
     cout << "55. Harshad Number Checker\n";
     cout << "56. Fibonacci Series Generator\n";
+    cout << "57. Divisor / Factor Finder\n";
 
     cout << "\n====================================================\n";
 }
@@ -2340,6 +2341,60 @@ void displayMenu()
 // MAIN
 // ======================================================
 
+
+// ====================================================
+// DIVISOR / FACTOR FINDER - OPTION 57
+// ====================================================
+void divisorFactorFinder()
+{
+    cout << "\n====================================================\n";
+    cout << "                 DIVISOR / FACTOR FINDER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a positive integer: ");
+
+    if (n <= 0)
+    {
+        cout << "\n[ERROR] Please enter a positive integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    vector<long long> divisors;
+
+    for (long long i = 1; i <= n / i; ++i)
+    {
+        if (n % i == 0)
+        {
+            divisors.push_back(i);
+
+            if (i != n / i)
+                divisors.push_back(n / i);
+        }
+    }
+
+    sort(divisors.begin(), divisors.end());
+
+    cout << "\nDivisors / Factors of " << n << ":\n";
+
+    for (size_t i = 0; i < divisors.size(); ++i)
+    {
+        cout << divisors[i];
+
+        if (i + 1 < divisors.size())
+            cout << " ";
+    }
+
+    cout << "\n";
+    cout << "----------------------------------------------------\n";
+    cout << "Total divisors = " << divisors.size() << '\n';
+    cout << "----------------------------------------------------\n";
+
+    setPreviousAnswer(static_cast<double>(divisors.size()));
+    addToHistory("Found divisors of " + to_string(n));
+
+    cout << "====================================================\n";
+}
 
 // ====================================================
 // FIBONACCI SERIES GENERATOR - OPTION 56
@@ -2529,9 +2584,10 @@ int main()
             case 54: automorphicNumberChecker(); break;
             case 55: harshadNumberChecker(); break;
             case 56: fibonacciSeriesGenerator(); break;
+            case 57: divisorFactorFinder(); break;
 
             default:
-                cout << "\n[ERROR] Invalid choice. Please enter 1-56.\n";
+                cout << "\n[ERROR] Invalid choice. Please enter 1-57.\n";
         }
 
         if (choice != 22)
