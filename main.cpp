@@ -2333,6 +2333,7 @@ void displayMenu()
     cout << "55. Harshad Number Checker\n";
     cout << "56. Fibonacci Series Generator\n";
     cout << "57. Divisor / Factor Finder\n";
+    cout << "58. Prime Factors Finder\n";
 
     cout << "\n====================================================\n";
 }
@@ -2494,6 +2495,67 @@ void harshadNumberChecker()
     cout << "====================================================\n";
 }
 
+
+// ====================================================
+// PRIME FACTORS FINDER - OPTION 58
+// ====================================================
+void primeFactorsFinder()
+{
+    cout << "\n====================================================\n";
+    cout << "                 PRIME FACTORS FINDER\n";
+    cout << "====================================================\n";
+
+    long long n = getInteger("Enter a positive integer: ");
+
+    if (n <= 0)
+    {
+        cout << "\n[ERROR] Please enter a positive integer.\n";
+        cout << "====================================================\n";
+        return;
+    }
+
+    long long remaining = n;
+    vector<long long> factors;
+
+    while (remaining % 2 == 0)
+    {
+        factors.push_back(2);
+        remaining /= 2;
+    }
+
+    for (long long factor = 3; factor <= remaining / factor; factor += 2)
+    {
+        while (remaining % factor == 0)
+        {
+            factors.push_back(factor);
+            remaining /= factor;
+        }
+    }
+
+    if (remaining > 1)
+        factors.push_back(remaining);
+
+    cout << "\nPrime Factors of " << n << ":\n";
+
+    for (size_t i = 0; i < factors.size(); ++i)
+    {
+        cout << factors[i];
+
+        if (i + 1 < factors.size())
+            cout << " ";
+    }
+
+    cout << "\n";
+    cout << "----------------------------------------------------\n";
+    cout << "Total prime factors = " << factors.size() << '\n';
+    cout << "----------------------------------------------------\n";
+
+    setPreviousAnswer(static_cast<double>(factors.size()));
+    addToHistory("Found prime factors of " + to_string(n));
+
+    cout << "====================================================\n";
+}
+
 int main()
 {
     loadHistory();
@@ -2585,9 +2647,10 @@ int main()
             case 55: harshadNumberChecker(); break;
             case 56: fibonacciSeriesGenerator(); break;
             case 57: divisorFactorFinder(); break;
+            case 58: primeFactorsFinder(); break;
 
             default:
-                cout << "\n[ERROR] Invalid choice. Please enter 1-57.\n";
+                cout << "\n[ERROR] Invalid choice. Please enter 1-58.\n";
         }
 
         if (choice != 22)
