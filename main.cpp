@@ -2258,84 +2258,81 @@ void automorphicNumberChecker()
 
 void displayMenu()
 {
-    cout << "\n\n====================================================\n";
-    cout << "                    CALCNOVA\n";
-    cout << "              SCIENTIFIC CALCULATOR\n";
-    cout << "====================================================\n";
+    cout << "\n\n";
+    cout << "============================================================\n";
+    cout << "                         CALCNOVA\n";
+    cout << "                  SCIENTIFIC CALCULATOR\n";
+    cout << "                       Version 1.0\n";
+    cout << "============================================================\n";
 
-    cout << "\n[ BASIC OPERATIONS ]\n";
-    cout << "1.  Addition\n";
-    cout << "2.  Subtraction\n";
-    cout << "3.  Multiplication\n";
-    cout << "4.  Division\n";
-    cout << "5.  Modulus\n";
+    cout << "\n---------------------- BASIC OPERATIONS --------------------\n";
+    cout << "  1.  Addition                 2.  Subtraction\n";
+    cout << "  3.  Multiplication           4.  Division\n";
+    cout << "  5.  Modulus\n";
 
-    cout << "\n[ SCIENTIFIC OPERATIONS ]\n";
-    cout << "6.  Power\n";
-    cout << "7.  Square Root\n";
-    cout << "8.  Natural Log\n";
-    cout << "9.  Log Base 10\n";
+    cout << "\n------------------- SCIENTIFIC OPERATIONS ------------------\n";
+    cout << "  6.  Power                    7.  Square Root\n";
+    cout << "  8.  Natural Log              9.  Log Base 10\n";
+    cout << " 10.  Sin                      11. Cos\n";
+    cout << " 12.  Tan\n";
 
-    cout << "\n[ TRIGONOMETRY ]\n";
-    cout << "10. Sin\n";
-    cout << "11. Cos\n";
-    cout << "12. Tan\n";
+    cout << "\n-------------------- OTHER OPERATIONS ----------------------\n";
+    cout << " 13.  Percentage               14. PI Value\n";
+    cout << " 15.  e Value                  16. Absolute Value\n";
+    cout << " 17.  Reciprocal               23. Factorial\n";
+    cout << " 24.  Square                   25. Cube\n";
+    cout << " 26.  Exponential (e^x)\n";
 
-    cout << "\n[ OTHER OPERATIONS ]\n";
-    cout << "13. Percentage\n";
-    cout << "14. PI Value\n";
-    cout << "15. e Value\n";
-    cout << "16. Absolute Value\n";
-    cout << "17. Reciprocal\n";
-    cout << "23. Factorial\n";
-    cout << "24. Square\n";
-    cout << "25. Cube\n";
-    cout << "26. Exponential (e^x)\n";
+    cout << "\n--------------------- HISTORY & INFO -----------------------\n";
+    cout << " 18.  View History             19. Clear History\n";
+    cout << " 20.  About                    21. Help\n";
+    cout << " 22.  Exit\n";
 
-    cout << "\n[ HISTORY ]\n";
-    cout << "18. View History\n";
-    cout << "19. Clear History\n";
+    cout << "\n-------------------- ANSWER & MEMORY -----------------------\n";
+    cout << " 27.  Show Previous Answer     28. Degree/Radian Mode\n";
+    cout << " 29.  Memory Store (MS)        30. Memory Recall (MR)\n";
+    cout << " 31.  Memory Add (M+)          32. Memory Clear (MC)\n";
+    cout << " 33.  Show Memory\n";
 
-    cout << "\n[ INFORMATION ]\n";
-    cout << "20. About\n";
-    cout << "21. Help\n";
-    cout << "22. Exit\n";
+    cout << "\n------------------- ADVANCED CALCULATORS -------------------\n";
+    cout << " 34.  Expression Calculator\n";
+    cout << " 35.  Statistics Calculator\n";
 
-    cout << "\n[ ANSWER & MEMORY ]\n";
-    cout << "27. Show Previous Answer\n";
-    cout << "28. Toggle Degree/Radian\n";
-    cout << "29. Memory Store (MS)\n";
-    cout << "30. Memory Recall (MR)\n";
-    cout << "31. Memory Add (M+)\n";
-    cout << "32. Memory Clear (MC)\n";
-    cout << "33. Show Memory\n";
-    cout << "34. Expression Calculator\n";
-    cout << "35. Statistics Calculator\n";
-    cout << "36. Speed of Light (c)\n";
-    cout << "37. Gravitational Constant (G)\n";
-    cout << "38. Planck Constant (h)\n";
-    cout << "39. Avogadro Constant (NA)\n";
-    cout << "40. Electron Charge (e)\n";
-    cout << "41. GCD & LCM Calculator\n";
-    cout << "42. Binary <-> Decimal Converter\n";
-    cout << "43. Unit Converter\n";
-    cout << "44. Number System Converter\n";
-    cout << "45. Combinations & Permutations (nCr / nPr)\n";
-    cout << "46. Quadratic Equation Solver\n";
-    cout << "47. Matrix Calculator\n";
-    cout << "48. Determinant Calculator\n";
-    cout << "49. Prime Number Checker\n";
-    cout << "50. Armstrong Number Checker\n";
-    cout << "51. Palindrome Number Checker\n";
-    cout << "52. Perfect Number Checker\n";
-    cout << "53. Strong Number Checker\n";
-    cout << "54. Automorphic Number Checker\n";
-    cout << "55. Harshad Number Checker\n";
-    cout << "56. Fibonacci Series Generator\n";
-    cout << "57. Divisor / Factor Finder\n";
-    cout << "58. Prime Factors Finder\n";
+    cout << "\n------------------- SCIENTIFIC CONSTANTS -------------------\n";
+    cout << " 36.  Speed of Light (c)\n";
+    cout << " 37.  Gravitational Constant (G)\n";
+    cout << " 38.  Planck Constant (h)\n";
+    cout << " 39.  Avogadro Constant (NA)\n";
+    cout << " 40.  Electron Charge (e)\n";
 
-    cout << "\n====================================================\n";
+    cout << "\n------------------ NUMBER & CONVERSIONS --------------------\n";
+    cout << " 41.  GCD & LCM Calculator\n";
+    cout << " 42.  Binary <-> Decimal Converter\n";
+    cout << " 43.  Unit Converter\n";
+    cout << " 44.  Number System Converter\n";
+    cout << " 45.  Combinations & Permutations (nCr / nPr)\n";
+
+    cout << "\n---------------- EQUATION & MATRIX TOOLS -------------------\n";
+    cout << " 46.  Quadratic Equation Solver\n";
+    cout << " 47.  Matrix Calculator\n";
+    cout << " 48.  Determinant Calculator\n";
+
+    cout << "\n---------------- NUMBER PROPERTY CHECKERS ------------------\n";
+    cout << " 49.  Prime Number Checker\n";
+    cout << " 50.  Armstrong Number Checker\n";
+    cout << " 51.  Palindrome Number Checker\n";
+    cout << " 52.  Perfect Number Checker\n";
+    cout << " 53.  Strong Number Checker\n";
+    cout << " 54.  Automorphic Number Checker\n";
+    cout << " 55.  Harshad Number Checker\n";
+
+    cout << "\n---------------- NUMBER & FACTOR UTILITIES -----------------\n";
+    cout << " 56.  Fibonacci Series Generator\n";
+    cout << " 57.  Divisor / Factor Finder\n";
+    cout << " 58.  Prime Factors Finder\n";
+
+    cout << "\n============================================================\n";
+    cout << "  Enter your choice: ";
 }
 
 // ======================================================
