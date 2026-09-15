@@ -2256,6 +2256,48 @@ void automorphicNumberChecker()
 // MENU
 // ======================================================
 
+// ====================================================
+// WELCOME SCREEN
+// ====================================================
+void showWelcomeScreen()
+{
+    cout << "\n\n";
+    cout << "============================================================\n";
+    cout << "                    C A L C N O V A\n";
+    cout << "                 SCIENTIFIC CALCULATOR\n";
+    cout << "                      Version 1.0\n";
+    cout << "============================================================\n";
+    cout << "\n";
+    cout << "          Welcome to CalcNova! 🚀\n";
+    cout << "          Your all-in-one C++ Calculator\n";
+    cout << "\n";
+    cout << "          58 Powerful Mathematical Features\n";
+    cout << "\n";
+    cout << "============================================================\n";
+    cout << "              Calculate • Explore • Learn\n";
+    cout << "============================================================\n";
+}
+
+
+// ====================================================
+// EXIT SCREEN
+// ====================================================
+void showExitScreen()
+{
+    cout << "\n\n";
+    cout << "============================================================\n";
+    cout << "                    C A L C N O V A\n";
+    cout << "============================================================\n";
+    cout << "\n";
+    cout << "              Thank You for Using CalcNova!\n";
+    cout << "\n";
+    cout << "             Keep Learning | Keep Coding\n";
+    cout << "             Keep Building Great Projects\n";
+    cout << "\n";
+    cout << "                       Goodbye!\n";
+    cout << "\n";
+    cout << "============================================================\n";
+}
 void displayMenu()
 {
     cout << "\n\n";
@@ -2555,6 +2597,7 @@ void primeFactorsFinder()
 
 int main()
 {
+    showWelcomeScreen();
     loadHistory();
 
     int choice;
@@ -2602,10 +2645,7 @@ int main()
             case 21: help(); break;
 
             case 22:
-                cout << "\n====================================================\n";
-                cout << "          Thank you for using CalcNova!\n";
-                cout << "                   Goodbye!\n";
-                cout << "====================================================\n";
+                showExitScreen();
                 break;
 
             case 23: factorial(); break;
