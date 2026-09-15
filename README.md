@@ -1,291 +1,272 @@
-# 🚀 CalcNova – Scientific Calculator
+# CalcNova – Scientific Calculator
 
 <p align="center">
-  <img src="https://img.shields.io/badge/C++-17-blue.svg" />
+  <img src="https://img.shields.io/badge/C%2B%2B-17-blue.svg" />
   <img src="https://img.shields.io/badge/Features-58-success.svg" />
   <img src="https://img.shields.io/badge/Platform-Windows-lightgrey.svg" />
   <img src="https://img.shields.io/badge/License-MIT-green.svg" />
 </p>
 
-CalcNova is a **console-based Scientific Calculator** developed in **C++**. It provides a wide collection of mathematical, scientific, statistical, matrix, number-system, unit-conversion, and number-property utilities through an easy menu-driven interface.
+CalcNova is a **console-based Scientific Calculator** developed in **C++17**. It provides a wide collection of mathematical, scientific, statistical, matrix, conversion, and number-property utilities through an easy menu-driven interface.
 
-> 🎯 **Current Version:** v1.0 (58 Features)
-
----
-
-# 📌 Features Overview
-
-CalcNova currently provides **58 calculator features**.
-
-## 🧮 Basic Arithmetic Operations
-
-| No. | Feature |
-|-----|---------|
-| 1 | Addition |
-| 2 | Subtraction |
-| 3 | Multiplication |
-| 4 | Division |
-| 5 | Modulus |
+> **Current Version:** v1.0  
+> **Total Features:** 58
 
 ---
 
-## 🔬 Scientific Operations
+## Features
 
-| No. | Feature |
-|-----|---------|
-| 6 | Power Calculator |
-| 7 | Square Root |
-| 8 | Natural Log (ln) |
-| 9 | Log Base 10 |
-| 10 | Exponential (e^x) |
-
----
-
-## 📐 Trigonometric Operations
-
-| No. | Feature |
-|-----|---------|
-| 11 | Sine |
-| 12 | Cosine |
-| 13 | Tangent |
-| 14 | Cotangent |
-| 15 | Secant |
-| 16 | Cosecant |
-
----
-
-## 📊 Statistical Operations
-
-| No. | Feature |
-|-----|---------|
-| 17 | Mean |
-| 18 | Median |
-| 19 | Mode |
-| 20 | Variance |
-| 21 | Standard Deviation |
-
----
-
-## 🔢 Number System Operations
-
-| No. | Feature |
-|-----|---------|
-| 22 | Exit |
-| 23 | Decimal to Binary |
-| 24 | Binary to Decimal |
-| 25 | Decimal to Octal |
-| 26 | Octal to Decimal |
-| 27 | Decimal to Hexadecimal |
-| 28 | Hexadecimal to Decimal |
-
----
-
-## 📏 Unit Conversion
-
-| No. | Feature |
-|-----|---------|
-| 29 | Celsius ↔ Fahrenheit |
-| 30 | Kilometer ↔ Meter |
-| 31 | Meter ↔ Centimeter |
-| 32 | Kilogram ↔ Gram |
-| 33 | Inch ↔ Centimeter |
-| 34 | Foot ↔ Meter |
-
----
-
-## 🧠 Mathematical Utilities
-
-| No. | Feature |
-|-----|---------|
-| 35 | Factorial |
-| 36 | Permutation (nPr) |
-| 37 | Combination (nCr) |
-| 38 | GCD / HCF |
-| 39 | LCM |
-| 40 | Quadratic Equation Solver |
-
----
-
-## 🧮 Matrix Operations
-
-| No. | Feature |
-|-----|---------|
-| 41 | Matrix Addition |
-| 42 | Matrix Subtraction |
-| 43 | Matrix Multiplication |
-| 44 | Matrix Transpose |
-| 45 | Matrix Inverse |
-| 46 | Matrix Determinant |
-
----
-
-## 🔍 Number Property Checkers
-
-| No. | Feature |
-|-----|---------|
-| 47 | Prime Number Checker |
-| 48 | Armstrong Number Checker |
-| 49 | Palindrome Number Checker |
-| 50 | Perfect Number Checker |
-| 51 | Strong Number Checker |
-| 52 | Automorphic Number Checker |
-| 53 | Harshad Number Checker |
-| 54 | Fibonacci Series Generator |
-| 55 | Divisor / Factor Finder |
-| 56 | Prime Factors Finder |
-
----
-
-## ⭐ Advanced Number Utilities
-
-| No. | Feature |
-|-----|---------|
-| 57 | Even / Odd Checker |
-| 58 | Positive / Negative / Zero Checker |
-
----
-
-# 🖥️ Sample Menu
-
-```text
-==================== CALCNOVA ====================
-
+### Basic Operations
 1. Addition
 2. Subtraction
 3. Multiplication
-...
-54. Fibonacci Series Generator
-55. Divisor / Factor Finder
-56. Prime Factors Finder
-57. Even / Odd Checker
-58. Positive / Negative / Zero Checker
+4. Division
+5. Modulus
 
-Enter your choice:
-```
+### Scientific & Trigonometry
+6. Power
+7. Square Root
+8. Natural Log
+9. Log Base 10
+10. Sin
+11. Cos
+12. Tan
+
+### Other Operations
+13. Percentage
+14. PI Value
+15. e Value
+16. Absolute Value
+17. Reciprocal
+23. Factorial
+24. Square
+25. Cube
+26. Exponential (e^x)
+
+### History & Information
+18. View History
+19. Clear History
+20. About
+21. Help
+22. Exit
+
+### Answer & Memory
+27. Show Previous Answer
+28. Toggle Degree/Radian
+29. Memory Store (MS)
+30. Memory Recall (MR)
+31. Memory Add (M+)
+32. Memory Clear (MC)
+33. Show Memory
+
+### Advanced Calculators
+34. Expression Calculator
+35. Statistics Calculator
+
+### Scientific Constants
+36. Speed of Light (c)
+37. Gravitational Constant (G)
+38. Planck Constant (h)
+39. Avogadro Constant (NA)
+40. Electron Charge (e)
+
+### Number & Conversion Utilities
+41. GCD & LCM Calculator
+42. Binary <-> Decimal Converter
+43. Unit Converter
+44. Number System Converter
+45. Combinations & Permutations (nCr / nPr)
+
+### Equation & Matrix Tools
+46. Quadratic Equation Solver
+47. Matrix Calculator
+48. Determinant Calculator
+
+### Number Property Checkers
+49. Prime Number Checker
+50. Armstrong Number Checker
+51. Palindrome Number Checker
+52. Perfect Number Checker
+53. Strong Number Checker
+54. Automorphic Number Checker
+55. Harshad Number Checker
+
+### Number & Factor Utilities
+56. Fibonacci Series Generator
+57. Divisor / Factor Finder
+58. Prime Factors Finder
 
 ---
 
-# 📸 Example Outputs
+## Highlights
 
-## Armstrong Number Checker
-
-```text
-Enter a number: 153
-
-153 is an Armstrong Number.
-```
-
-## Palindrome Number Checker
-
-```text
-Enter a number: 121
-
-121 is a Palindrome Number.
-```
-
-## Prime Factors Finder
-
-```text
-Enter a number: 60
-
-Prime Factors:
-2 2 3 5
-```
+- Clean and menu-driven console interface
+- Input validation and error handling
+- Persistent calculation history using `history.txt`
+- Previous-answer support
+- Memory operations similar to a physical calculator
+- Degree/Radian mode for trigonometric calculations
+- Expression evaluation
+- Statistics and matrix utilities
+- Number-system and unit conversions
+- Mathematical constant utilities
+- Number-property checkers
+- Professional welcome and exit screens
 
 ---
 
-# ⚙️ Technologies Used
+## Technologies Used
 
-- C++17
-- Standard Template Library (STL)
-- Console-Based User Interface
-- Modular Functions
-- Input Validation
-- Menu Driven Program
-
----
-
-# 📂 Project Structure
-
-```text
-CalcNova-Scientific-Calculator/
-│
-├── main.cpp              # Main Calculator Source Code
-├── main_backup.cpp       # Backup Source Code
-├── README.md             # Documentation
-├── LICENSE               # MIT License
-├── .gitignore
-└── history.txt           # Calculation History
-```
+- **C++**
+- **C++17**
+- **C++ Standard Library**
+- **File Handling**
+- **Vectors**
+- **Mathematical Functions**
+- **Object-oriented / modular function-based program structure**
 
 ---
 
-# ▶️ Installation & Run
+## How to Run
 
-## Clone Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Tauhid-ai/CalcNova-Scientific-Calculator.git
+```
+
+### 2. Open the project folder
+
+```bash
 cd CalcNova-Scientific-Calculator
 ```
 
-## Compile
+### 3. Compile
 
 ```bash
 g++ -std=c++17 main.cpp -o CalcNova.exe
 ```
 
-## Run
+### 4. Run
 
-```bash
-./CalcNova.exe
+**Windows PowerShell:**
+
+```powershell
+.\CalcNova.exe
 ```
 
 ---
 
-# ✨ Highlights
+## Example
 
-- ✅ 58 Calculator Features
-- ✅ Matrix Calculations
-- ✅ Scientific Functions
-- ✅ Statistical Functions
-- ✅ Number System Conversion
-- ✅ Unit Conversion
-- ✅ Number Property Checkers
-- ✅ Input Validation
-- ✅ Clean Modular Code
-- ✅ Beginner Friendly C++ Project
+### Prime Factors Finder
 
----
+```text
+Enter your choice: 58
 
-# 🛣️ Upcoming Features (Roadmap)
+PRIME FACTORS FINDER
 
-- Percentage Calculator
-- EMI Calculator
-- BMI Calculator
-- Age Calculator
-- Currency Converter
-- Polynomial Solver
-- Complex Number Calculator
-- Random Number Generator
-- Equation Solver
-- History Export Feature
+Enter a positive integer: 60
 
----
+Prime Factors of 60:
+2 2 3 5
 
-# 🤝 Contributing
+Total prime factors = 4
+```
 
-Contributions are welcome!
+### Fibonacci Series
 
-1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes.
-4. Push your branch.
-5. Open a Pull Request.
+```text
+Enter your choice: 56
+
+FIBONACCI SERIES GENERATOR
+
+Enter number of terms: 10
+
+Fibonacci Series:
+0 1 1 2 3 5 8 13 21 34
+
+Total terms = 10
+```
 
 ---
 
-# 👨‍💻 Developer
+## Project Structure
+
+```text
+CalcNova-Scientific-Calculator/
+│
+├── main.cpp
+├── main_backup.cpp
+├── CalcNova.exe
+├── history.txt
+├── LICENSE
+├── README.md
+└── .gitignore
+```
+
+> `CalcNova.exe` may be generated locally after compilation.
+
+---
+
+## History
+
+CalcNova stores calculation history in:
+
+```text
+history.txt
+```
+
+The application also provides options to view and clear saved history.
+
+---
+
+## Error Handling
+
+CalcNova validates common invalid inputs such as:
+
+- Division by zero
+- Invalid square-root input
+- Invalid logarithm input
+- Invalid numeric input
+- Invalid menu choices
+- Invalid number-system input
+- Invalid matrix dimensions
+- Invalid number-property inputs
+
+---
+
+## Objective
+
+The main objective of CalcNova is to build a practical **C++ console application** while applying programming concepts such as:
+
+- Functions
+- Loops
+- Conditional statements
+- Switch-case
+- Vectors
+- File handling
+- Mathematical algorithms
+- Input validation
+- Modular programming
+
+---
+
+## Future Improvements
+
+Possible future versions may include:
+
+- Graphical User Interface (GUI)
+- More advanced scientific functions
+- Improved expression parsing
+- More unit categories
+- Exportable calculation history
+- Additional statistical tools
+- Web-based version of CalcNova
+
+---
+
+## Developer
 
 **Tauhid Alam Ansari (T. A. Ansari)**
 
@@ -297,12 +278,12 @@ GitHub: **Tauhid-ai**
 
 ---
 
-# 📄 License
+## License
 
 This project is licensed under the **MIT License**.
 
 ---
 
 <p align="center">
-⭐ If you like this project, don't forget to Star the repository.
+  If you like this project, don't forget to ⭐ the repository.
 </p>
